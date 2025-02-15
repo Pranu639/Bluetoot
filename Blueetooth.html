@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth Device Control</title>
+</head>
+<body>
+    <h2>Bluetooth Device Control Interface</h2>
+    <button onclick="connectToBluetooth()">Connect to Bluetooth Device</button>
+    <button onclick="sendShutdownCommand()">Send Shutdown Command</button>
+
+    <script>
+        let device;
+        let server;
+
+        async function connectToBluetooth() {
+            try {
+                device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: ['battery_service']
+                });
+                server = await device.gatt.connect();
+                alert('Connected to Bluetooth Device');
+            } catch (error) {
+                console.error('Bluetooth connection failed:', error);
+                alert('Failed to connect to Bluetooth device.');
+            }
+        }
+
+        async function sendShutdownCommand() {
+            if (!server) {
+                alert('Please connect to a Bluetooth device first.');
+                return;
+            }
+
+            try {
+                // Simulating sending a shutdown command
+                alert('Sending shutdown command...');
+                // Real shutdown requires device-side implementation
+            } catch (error) {
+                console.error('Failed to send shutdown command:', error);
+            }
+        }
+    </script>
+</body>
+</html>
